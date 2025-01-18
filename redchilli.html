@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page | Red Chilli</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="gallery/logo-star-organic.png" type="image/x-icon">
+</head>
+<body>
+    <div class="container py-5" data-aos="fade-up" data-aos-duration="1500">
+        <div class="row product-container align-items-center">
+            <!-- Product Image -->
+            <div class="col-md-5 text-center" data-aos="zoom-in" data-aos-duration="2000">
+                <img src="gallery/redChilliPowder.webp" alt="Red Chilli" class="img-fluid rounded shadow">
+            </div>
+
+            <!-- Product Details -->
+            <div class="col-md-7">
+                <h2 class="product-title" data-aos="fade-right" data-aos-duration="2000">RED CHILLI</h2>
+                <p><strong>Price:</strong> Rs 400</p>
+                <p class="product-description">
+                    <small>Discover the bold, earthy flavor of <b style="color: #fffbf9;">Star Organics Red Chilli</b> sourced from the best organic farms. Known for its distinct, warm aroma and rich taste, red chilli is a must-have in any kitchen, particularly for those who love to elevate their cooking with authentic spices.</small>
+                </p>
+                <div class="quantity-label my-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control w-50" id="quantity" name="quantity" min="1" value="1">
+                </div>
+                <button class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" 
+                        data-aos="zoom-out-right" data-aos-duration="2000">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offcanvas Shopping Cart -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="cartOffcanvasLabel">Shopping Cart</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+                <img src="gallery/red-chilli.png" alt="Red Chilli" height="200" width="200">
+           
+            <h3 style="color: #3b1c09;">Red Chilli</h3>
+            <p>Bring the authentic taste of organic spices to your kitchen with <b style="color: #614c3f;">Star Organics Red Chilli</b>. Grown without the use of pesticides or synthetic fertilizers, our red chillies are harvested from the finest organic farms to ensure superior quality and flavor in every batch.</p>
+            <h5>Benefits of Red Chilli:</h5>
+            <ul>
+                <li><b>100% Organic:</b> Our red chillies are carefully cultivated without synthetic chemicals or pesticides, ensuring that you get the highest quality, purest form of this essential spice.</li><br>
+                <li><b>Rich in Nutrients:</b> Red chillies are packed with antioxidants, vitamins, and minerals that are known to enhance metabolism and boost immunity.</li><br>
+                <li><b>Health Benefits:</b> Known to promote digestive health, enhance immunity, and improve skin health.</li><br>
+                <li><b>Versatile Use:</b> Ideal for Indian, Mexican, and other international cuisines, red chilli can be used in curries, sauces, soups, and even as a seasoning for roasted vegetables and meats.</li><br>
+            </ul>
+            <p><b>Price: Rs 400</b></p>
+            <div class="quantity-label my-3">
+                <label for="quantity-cart" class="form-label">Quantity</label>
+                <input type="number" class="form-control w-50" id="quantity-cart" name="quantity" min="1" value="1">
+            </div>
+            <button class="Buy">BUY NOW</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        const cart = [];
+
+function addToCart(productName, productPrice, productQuantity) {
+    const existingItem = cart.find(item => item.name === productName);
+
+    if (existingItem) {
+
+        existingItem.quantity += productQuantity;
+        existingItem.totalPrice = existingItem.quantity * productPrice;
+    } else {
+
+        cart.push({
+            name: productName,
+            price: productPrice,
+            quantity: productQuantity,
+            totalPrice: productQuantity * productPrice
+        });
+    }
+
+    displayCart();
+}
+
+function displayCart() {
+    const cartBody = document.querySelector(".offcanvas-body");
+    let totalCartPrice = 0;
+
+    cartBody.innerHTML = `
+        <h5>Shopping Cart</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <ul class="list-group mb-3"></ul>
+    `;
+
+    const ul = document.createElement("ul");
+    ul.className = "list-group";
+
+    cart.forEach(item => {
+        const li = document.createElement("li");
+        li.className = "list-group-item d-flex justify-content-between align-items-center";
+        li.innerHTML = `
+            ${item.name} - Rs ${item.price} x ${item.quantity}
+            <span>Rs ${item.totalPrice}</span>
+        `;
+        ul.appendChild(li);
+        totalCartPrice += item.totalPrice;
+    });
+
+    cartBody.appendChild(ul);
+
+    const totalDiv = document.createElement("div");
+    totalDiv.className = "mt-3";
+    totalDiv.innerHTML = `<strong>Total Price: Rs ${totalCartPrice}</strong>`;
+    cartBody.appendChild(totalDiv);
+}
+
+document.querySelector(".btn-outline-dark").addEventListener("click", () => {
+    const productName = "Red Chilli"; 
+    const productPrice = 400; 
+    const productQuantity = parseInt(document.querySelector("#quantity").value); 
+    addToCart(productName, productPrice, productQuantity);
+});
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page | whole-wheat-flour</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="gallery/logo-star-organic.png" type="image/x-icon">
+</head>
+<body>
+    <div class="container py-5" data-aos="fade-up" data-aos-duration="1500">
+        <div class="row product-container align-items-center">
+            <!-- Product Image -->
+            <div class="col-md-5 text-center" data-aos="zoom-in" data-aos-duration="2000">
+                <img src="gallery/whole-wheat-flour.webp" alt="Whole Wheat Flour" class="img-fluid rounded shadow">
+            </div>
+
+            <!-- Product Details -->
+            <div class="col-md-7">
+                <h2 class="product-title" data-aos="fade-right" data-aos-duration="2000">WHOLE WHEAT FLOUR</h2>
+                <p style="color: #cac7c6;"><strong style="color: #bebdbc;">Price:</strong> Rs 180</p>
+                <p class="product-description">
+                    <small><b style="color: #fcf6f6;">Star Organics Whole Wheat Flour</b> is made from 100% organic wheat, milled with the utmost care to retain all the nutrients. It is rich in fiber, protein, and essential vitamins, making it an excellent choice for healthy, nutritious baking and cooking.</small>
+                </p>
+                <div class="quantity-label my-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control w-50" id="quantity" name="quantity" min="1" value="1">
+                </div>
+                <button class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" 
+                        data-aos="zoom-out-right" data-aos-duration="2000">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offcanvas Shopping Cart -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="cartOffcanvasLabel">Shopping Cart</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            
+        <img src="gallery/whole-wheat-flour.webp" alt="Whole Wheat Flour" height="200" width="200">
+           
+            <h3 style="color: #3b1c09;">Whole Wheat Flour</h3>
+            <p><b style="color: #7a3001;">Star Organics Whole Wheat Flour</b> is an essential ingredient for anyone looking for a healthier, whole-grain alternative to refined flours. Milled from organic wheat, it’s perfect for making breads, pancakes, and other baked goods that are not only delicious but also nutritious.</p>
+
+            <h5>Benefits of Whole Wheat Flour:</h5>
+            <ul>
+                <li><b>Rich in Fiber:</b> Aids digestion and helps regulate blood sugar levels.</li><br>
+                <li><b>High in Protein:</b> Supports muscle growth and repair, essential for overall body function.</li><br>
+                <li><b>Packed with Nutrients:</b> Contains vitamins and minerals like iron, magnesium, and B vitamins.</li><br>
+                <li><b>Heart-Healthy:</b> Whole wheat flour can help lower cholesterol and reduce the risk of heart disease.</li><br>
+            </ul>
+            <p><b>Price: Rs 180</b></p>
+            <div class="quantity-label my-3">
+                <label for="quantity-cart" class="form-label">Quantity</label>
+                <input type="number" class="form-control w-50" id="quantity-cart" name="quantity" min="1" value="1">
+            </div>
+            <button class="Buy">BUY NOW</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        const cart = [];
+
+function addToCart(productName, productPrice, productQuantity) {
+    const existingItem = cart.find(item => item.name === productName);
+
+    if (existingItem) {
+
+        existingItem.quantity += productQuantity;
+        existingItem.totalPrice = existingItem.quantity * productPrice;
+    } else {
+
+        cart.push({
+            name: productName,
+            price: productPrice,
+            quantity: productQuantity,
+            totalPrice: productQuantity * productPrice
+        });
+    }
+
+    displayCart();
+}
+
+function displayCart() {
+    const cartBody = document.querySelector(".offcanvas-body");
+    let totalCartPrice = 0;
+
+    cartBody.innerHTML = `
+        <h5>Shopping Cart</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <ul class="list-group mb-3"></ul>
+    `;
+
+    const ul = document.createElement("ul");
+    ul.className = "list-group";
+
+    cart.forEach(item => {
+        const li = document.createElement("li");
+        li.className = "list-group-item d-flex justify-content-between align-items-center";
+        li.innerHTML = `
+            ${item.name} - Rs ${item.price} x ${item.quantity}
+            <span>Rs ${item.totalPrice}</span>
+        `;
+        ul.appendChild(li);
+        totalCartPrice += item.totalPrice;
+    });
+
+    cartBody.appendChild(ul);
+
+    const totalDiv = document.createElement("div");
+    totalDiv.className = "mt-3";
+    totalDiv.innerHTML = `<strong>Total Price: Rs ${totalCartPrice}</strong>`;
+    cartBody.appendChild(totalDiv);
+}
+
+document.querySelector(".btn-outline-dark").addEventListener("click", () => {
+    const productName = "Whole Wheat Flour"; 
+    const productPrice = 180; 
+    const productQuantity = parseInt(document.querySelector("#quantity").value); 
+    addToCart(productName, productPrice, productQuantity);
+});
+    </script>
+</body>
+</html>

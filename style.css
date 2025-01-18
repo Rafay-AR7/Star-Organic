@@ -1,0 +1,110 @@
+body {
+    background-image: url('https://t3.ftcdn.net/jpg/11/37/08/04/360_F_1137080457_irtCjk8KmgXUjEdeYyXiPxOVwhlLdsCt.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin: 50px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.404);
+    background-color: #2e12017a;
+    overflow: hidden;
+    box-shadow: 0px 0px 5px 5px rgb(161, 161, 161);
+    margin-top: 200px;
+}
+.product-image img {
+    width: 450px;
+    height: 450px;
+    border-radius: 10px;
+    
+}
+.product-details {
+    flex: 1;
+    padding: 20px;
+}
+.product-title {
+    font-size: 32px;
+    font-weight: bold;
+    font-family:Georgia, 'Times New Roman', Times, serif ;
+    margin-bottom: 20px;
+    color: #ffffffde;
+}
+.product-title  strong {
+    color: #ddd;
+}
+.product-description {
+    font-size: 18px;
+    color: #ffe9e9;
+    margin-bottom: 20px;
+}
+.small {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.678);
+}
+.quantity-label {
+    font-size: 20px;
+    font-weight: 500;
+    width: 300px;
+    color: #a48165;
+    font-weight: bold;
+}
+.btn-outline-dark {
+    background-color: rgba(84, 44, 3, 0.616);
+    font-size: 16px;
+    padding: 10px 20px;
+    width: 80%;
+    color: rgb(253, 253, 253);
+    margin-top: 30px;
+    border: 1px solid white;
+}
+.btn-outline-dark:hover {
+    background-color: #7e3102;
+    border-color: #0a0a0a;
+}
+.offcanvas {
+    background-image: url('https://img.freepik.com/premium-photo/collection-colorful-spices-brown-background_14117-984357.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #ddd;
+}
+.offcanvas-body img {
+    margin-left: 60px;
+    border-radius: 50%;
+}
+.offcanvas-body li b {
+    color: #351401;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.offcanvas-body h3{
+    color: #000000;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+.offcanvas-body h5{
+    color: #291308;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.offcanvas-body p{
+    color: white;
+}
+.col-md-7{
+    color: #ffe9e9;
+}
+.Buy {
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid rgb(253, 249, 249);
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    width: 90%;
+}
+.Buy:hover {
+    background-color: #7c3101;
+    color: white;
+}

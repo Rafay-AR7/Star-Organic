@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page | Coriander Powder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="gallery/logo-star-organic.png" type="image/x-icon">
+</head>
+<body>
+    <div class="container py-5">
+        <div class="row product-container align-items-center" data-aos="fade-up" data-aos-duration="1500">
+            
+            <!-- Product Image -->
+            <div class="col-md-5 text-center" data-aos="zoom-in" data-aos-duration="2000">
+                <img src="gallery/Coriander.webp" alt="Coriander Powder" class="img-fluid rounded shadow">
+            </div>
+
+            <!-- Product Details -->
+            <div class="col-md-7">
+                <h2 class="product-title" style="color: #3b1c09;" data-aos="fade-right" data-aos-duration="2000">CORIANDER POWDER</h2>
+                <p><strong>Price:</strong> Rs 300</p>
+                <p class="product-description">
+                    <small>Unlock the full potential of your dishes with <b style="color: #f0ebe7;">Star Organics Coriander Powder</b>. This ground spice has a mild, citrusy flavor with warm undertones, making it ideal for curries, soups, salads, and sauces. Sourced from premium organic farms, our coriander powder is free from preservatives, ensuring a pure, fresh taste every time.</small>
+                </p>
+                <div class="quantity-label my-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control w-50" id="quantity" name="quantity" min="1" value="1">
+                </div>
+                <button class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" data-aos="zoom-out-right" data-aos-duration="2000">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offcanvas Shopping Cart -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="cartOffcanvasLabel">Shopping Cart</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="text-center mb-4" data-aos="flip-left" data-aos-duration="1500">
+                <img src="gallery/corainder-powder.png" alt="Coriander Powder" class="img-fluid rounded shadow" height="200" width="200">
+            </div>
+            <h2 style="color: #3b1c09;">Coriander Powder</h2>
+            <p>Elevate your culinary creations with <b style="color: #614c3f;">Star Organics Coriander Powder</b>. With its subtle, citrusy flavor and delicate warmth, this organic spice is perfect for bringing depth to your curries, soups, rice dishes, and salad dressings.</p>
+
+            <h5 style="color: #644836;">Benefits of Coriander Powder:</h5>
+            <ul>
+                <li><b>100% Organic:</b> Free from harmful chemicals, ensuring a pure and fresh taste.</li>
+                <li><b>Rich in Vitamins & Minerals:</b> Packed with vitamin C, K, and potassium to support overall health.</li>
+                <li><b>Supports Digestion:</b> Known for its digestive benefits, helping to relieve bloating and improve gut health.</li>
+                <li><b>Anti-Inflammatory:</b> Helps to reduce inflammation and supports immune health.</li>
+            </ul>
+            <p><b>Price: Rs 300</b></p>
+            <div class="quantity-label my-3">
+                <label for="quantity-cart" class="form-label">Quantity</label>
+                <input type="number" class="form-control w-50" id="quantity-cart" name="quantity" min="1" value="1">
+            </div>
+            <button class="btn btn-primary w-100" style="background-color: #614c3f; border: none;">BUY NOW</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        const cart = [];
+
+function addToCart(productName, productPrice, productQuantity) {
+    const existingItem = cart.find(item => item.name === productName);
+
+    if (existingItem) {
+
+        existingItem.quantity += productQuantity;
+        existingItem.totalPrice = existingItem.quantity * productPrice;
+    } else {
+
+        cart.push({
+            name: productName,
+            price: productPrice,
+            quantity: productQuantity,
+            totalPrice: productQuantity * productPrice
+        });
+    }
+
+    displayCart();
+}
+
+function displayCart() {
+    const cartBody = document.querySelector(".offcanvas-body");
+    let totalCartPrice = 0;
+
+    cartBody.innerHTML = `
+        <h5>Shopping Cart</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <ul class="list-group mb-3"></ul>
+    `;
+
+    const ul = document.createElement("ul");
+    ul.className = "list-group";
+
+    cart.forEach(item => {
+        const li = document.createElement("li");
+        li.className = "list-group-item d-flex justify-content-between align-items-center";
+        li.innerHTML = `
+            ${item.name} - Rs ${item.price} x ${item.quantity}
+            <span>Rs ${item.totalPrice}</span>
+        `;
+        ul.appendChild(li);
+        totalCartPrice += item.totalPrice;
+    });
+
+    cartBody.appendChild(ul);
+
+    const totalDiv = document.createElement("div");
+    totalDiv.className = "mt-3";
+    totalDiv.innerHTML = `<strong>Total Price: Rs ${totalCartPrice}</strong>`;
+    cartBody.appendChild(totalDiv);
+}
+
+document.querySelector(".btn-outline-dark").addEventListener("click", () => {
+    const productName = "Coriander Powder"; 
+    const productPrice = 300; 
+    const productQuantity = parseInt(document.querySelector("#quantity").value); 
+    addToCart(productName, productPrice, productQuantity);
+});
+    </script>
+</body>
+</html>

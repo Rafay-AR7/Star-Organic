@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page | Chat Masala</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="gallery/logo-star-organic.png" type="image/x-icon">
+</head>
+<body>
+    <!-- Product Section -->
+    <div class="container py-5">
+        <div class="row product-container align-items-center" data-aos="fade-up" data-aos-duration="1500">
+            
+            <!-- Product Image -->
+            <div class="col-md-5 text-center">
+                <img src="https://www.indore.online/cdn/shop/articles/Indian_Chat_Masala_612x.jpg?v=1656323224" 
+                     alt="Chat Masala" class="img-fluid rounded shadow" style="max-height: 350px;" data-aos="zoom-in" data-aos-duration="2000">
+            </div>
+
+            <!-- Product Details -->
+            <div class="col-md-7">
+                <h2 class="product-title" style="color: #3b1c09;" data-aos="fade-right" data-aos-duration="2000">CHAT MASALA</h2>
+                <p><strong>Price:</strong> Rs 200</p>
+                <p class="product-description">
+                    <small>
+                        Bring a burst of tangy, zesty flavor to your dishes with 
+                        <b style="color: #f5efeb;">Star Organics Chat Masala</b>. A carefully crafted blend of aromatic spices, it's perfect for enhancing the taste of fruits, chaats, salads, and snacks.
+                    </small>
+                </p>
+                <div class="quantity-label my-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control w-50" id="quantity" name="quantity" min="1" value="1">
+                </div>
+                <button class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" data-aos="zoom-out-right" data-aos-duration="2000">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Offcanvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="cartOffcanvasLabel">Shopping Cart</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="text-center mb-4">
+                <img src="https://www.indore.online/cdn/shop/articles/Indian_Chat_Masala_612x.jpg?v=1656323224" 
+                     alt="Chat Masala" class="img-fluid rounded shadow" style="max-height: 200px;" data-aos="flip-left" data-aos-duration="1500">
+            </div>
+            <h2 style="color: #3b1c09;">Chat Masala - Organic Spice Blend</h2>
+            <p>Transform your everyday dishes with the tangy goodness of <b style="color: #614c3f;">Star Organics Chat Masala</b>. Add it to fruits, snacks, or curries to elevate their taste.</p>
+            
+            <h5 style="color: #644836;">Benefits of Chat Masala:</h5>
+            <ul>
+                <li><b>Tangy Taste:</b> Perfectly balanced to add a tangy twist to any dish.</li>
+                <li><b>Versatile Usage:</b> Ideal for fruits, chaats, snacks, and even as a seasoning for savory dishes.</li>
+                <li><b>Digestive Aid:</b> Contains ingredients like dried mango and black salt, known to aid digestion.</li>
+                <li><b>Premium Quality:</b> Made from high-quality, organic spices for the best flavor and aroma.</li>
+            </ul>
+            
+            <p><b>Price: Rs 200</b></p>
+            <div class="quantity-label my-3">
+                <label for="quantity-cart" class="form-label">Quantity</label>
+                <input type="number" class="form-control w-50" id="quantity-cart" name="quantity" min="1" value="1">
+            </div>
+            <button class="Buy">BUY NOW</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        const cart = [];
+
+function addToCart(productName, productPrice, productQuantity) {
+    const existingItem = cart.find(item => item.name === productName);
+
+    if (existingItem) {
+
+        existingItem.quantity += productQuantity;
+        existingItem.totalPrice = existingItem.quantity * productPrice;
+    } else {
+
+        cart.push({
+            name: productName,
+            price: productPrice,
+            quantity: productQuantity,
+            totalPrice: productQuantity * productPrice
+        });
+    }
+
+    displayCart();
+}
+
+function displayCart() {
+    const cartBody = document.querySelector(".offcanvas-body");
+    let totalCartPrice = 0;
+
+    cartBody.innerHTML = `
+        <h5>Shopping Cart</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <ul class="list-group mb-3"></ul>
+    `;
+
+    const ul = document.createElement("ul");
+    ul.className = "list-group";
+
+    cart.forEach(item => {
+        const li = document.createElement("li");
+        li.className = "list-group-item d-flex justify-content-between align-items-center";
+        li.innerHTML = `
+            ${item.name} - Rs ${item.price} x ${item.quantity}
+            <span>Rs ${item.totalPrice}</span>
+        `;
+        ul.appendChild(li);
+        totalCartPrice += item.totalPrice;
+    });
+
+    cartBody.appendChild(ul);
+
+    const totalDiv = document.createElement("div");
+    totalDiv.className = "mt-3";
+    totalDiv.innerHTML = `<strong>Total Price: Rs ${totalCartPrice}</strong>`;
+    cartBody.appendChild(totalDiv);
+}
+
+document.querySelector(".btn-outline-dark").addEventListener("click", () => {
+    const productName = "Chaat Masala"; 
+    const productPrice = 200; 
+    const productQuantity = parseInt(document.querySelector("#quantity").value); 
+    addToCart(productName, productPrice, productQuantity);
+});
+    </script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page | Besan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="gallery/logo-star-organic.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container" style="height: 400px;">
+        <div class="product-container" data-aos="fade-up" data-aos-anchor-placement="center-bottom" data-aos-duration="1500">
+            <div class="product-image col-md-5">
+                <img src="gallery/basen.webp" alt="Besan (Gram Flour)" data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+            </div>
+
+            <div class="product-details col-md-7">
+                <h2 class="product-title" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="2000">BESAN (GRAM FLOUR)</h2>
+                <p><strong>Price:</strong> Rs 80</p>
+                <p class="product-description">
+                    <p class="small">Introducing <b style="color: #f0edec;">Star Organics Besan</b>, finely milled from high-quality chickpeas for a rich, nutty flavor. Ideal for a variety of recipes, from savory fritters to delicious sweets, besan adds a unique texture and taste to your cooking.</p>
+                </p>
+                <div class="quantity-label">
+                    <label for="quantity" class="form-label quantity-label">Quantity</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity" min="1" value="1">
+                </div>
+                <button class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" data-aos="zoom-out-right" data-aos-duration="2000">Add to Cart</button><br><br>
+            </div>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="cartOffcanvasLabel">Shopping Cart</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+
+        <div class="offcanvas-body">
+            <img height="200px" width="200px" src="gallery/basen.webp">
+            <h3>Besan (Gram Flour)</h3>
+            <p>Add a versatile ingredient to your kitchen with <b style="color: #341502;">Star Organics Besan</b>. Perfect for making traditional Indian dishes or experimenting with international cuisine.</p>
+            <h5 style="color: #441e06;">Benefits of Besan (Gram Flour):</h5>
+            <ul>
+                <li><b>Rich in Protein:</b> A great plant-based protein source, ideal for vegetarians and vegans.</li>
+                <li><b>Gluten-Free:</b> Naturally free of gluten, making it suitable for gluten-sensitive diets.</li>
+                <li><b>Packed with Nutrients:</b> High in dietary fiber, vitamins, and minerals like magnesium and iron.</li>
+                <li><b>Culinary Versatility:</b> Use in pakoras, curries, sweets like laddoos, or as a thickener for soups and sauces.</li>
+            </ul>
+            <p><b>Price: Rs 80</b></p>
+            <div class="quantity-label">
+                <label for="quantity" class="form-label quantity-label">Quantity</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" min="1" value="1">
+            </div>
+            <button class="Buy" style="width: 80%;">BUY NOW</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        const cart = [];
+
+function addToCart(productName, productPrice, productQuantity) {
+    const existingItem = cart.find(item => item.name === productName);
+
+    if (existingItem) {
+
+        existingItem.quantity += productQuantity;
+        existingItem.totalPrice = existingItem.quantity * productPrice;
+    } else {
+
+        cart.push({
+            name: productName,
+            price: productPrice,
+            quantity: productQuantity,
+            totalPrice: productQuantity * productPrice
+        });
+    }
+
+    displayCart();
+}
+
+function displayCart() {
+    const cartBody = document.querySelector(".offcanvas-body");
+    let totalCartPrice = 0;
+
+    cartBody.innerHTML = `
+        <h5>Shopping Cart</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <ul class="list-group mb-3"></ul>
+    `;
+
+    const ul = document.createElement("ul");
+    ul.className = "list-group";
+
+    cart.forEach(item => {
+        const li = document.createElement("li");
+        li.className = "list-group-item d-flex justify-content-between align-items-center";
+        li.innerHTML = `
+            ${item.name} - Rs ${item.price} x ${item.quantity}
+            <span>Rs ${item.totalPrice}</span>
+        `;
+        ul.appendChild(li);
+        totalCartPrice += item.totalPrice;
+    });
+
+    cartBody.appendChild(ul);
+
+    const totalDiv = document.createElement("div");
+    totalDiv.className = "mt-3";
+    totalDiv.innerHTML = `<strong>Total Price: Rs ${totalCartPrice}</strong>`;
+    cartBody.appendChild(totalDiv);
+}
+
+document.querySelector(".btn-outline-dark").addEventListener("click", () => {
+    const productName = "Besan"; 
+    const productPrice = 80; 
+    const productQuantity = parseInt(document.querySelector("#quantity").value); 
+    addToCart(productName, productPrice, productQuantity);
+});
+    </script>
+</body>
+</html>
+

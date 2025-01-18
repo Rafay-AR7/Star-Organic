@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page | Turmeric</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="gallery/logo-star-organic.png" type="image/x-icon">
+</head>
+<body>
+    <div class="container py-5" data-aos="fade-up" data-aos-duration="1500">
+        <div class="row product-container align-items-center">
+            <!-- Product Image -->
+            <div class="col-md-5 text-center" data-aos="zoom-in" data-aos-duration="2000">
+                <img src="gallery/HaldiPowder.webp" alt="Turmeric Powder" class="img-fluid rounded shadow">
+            </div>
+
+            <!-- Product Details -->
+            <div class="col-md-7">
+                <h2 class="product-title" data-aos="fade-right" data-aos-duration="2000">TURMERIC POWDER</h2>
+                <p style="color: #cac7c6;"><strong style="color: #bebdbc;">Price:</strong> Rs 400</p>
+                <p class="product-description">
+                    <small>Experience the vibrant and wholesome goodness of <b style="color: #f5f1f1;">Star Organics Turmeric Powder.</b> A kitchen staple with a rich golden color and an earthy, peppery flavor. Sourced from the finest organic farms, our turmeric is carefully cultivated without the use of harmful pesticides or chemicals, ensuring that you enjoy the purest and most potent form of this ancient root. A robust flavor that enhances every dish.</small>
+                </p>
+                <div class="quantity-label my-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control w-50" id="quantity" name="quantity" min="1" value="1">
+                </div>
+                <button class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" 
+                        data-aos="zoom-out-right" data-aos-duration="2000">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offcanvas Shopping Cart -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="cartOffcanvasLabel">Shopping Cart</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+           
+            <img src="gallery/turmeric.png" alt="Turmeric Powder" height="200" width="200">
+           
+            <h3 style="color: #3b1c09;">Turmeric Powder</h3>
+            <p><b style="color: #7a3103;">Star Organics Turmeric Powder</b> is your gateway to the golden power of nature. Sourced from the finest organic farms, our turmeric is cultivated without harmful chemicals, ensuring the most potent and pure product, ideal for adding flavor and health benefits to your meals.</p>
+
+            <h5>Benefits of Turmeric Powder:</h5>
+            <ul>
+                <li><b>100% Organic:</b> Sourced from trusted organic farms, free from artificial additives or preservatives.</li><br>
+                <li><b>Rich in Curcumin:</b> Provides a clean, robust taste to elevate your dishes.</li><br>
+                <li><b>Health Benefits:</b> Known to promote digestive health, enhance immunity, and support joint mobility.</li><br>
+                <li><b>Versatile Use:</b> Perfect for seasoning, baking, and garnishing.</li><br>
+            </ul>
+            <p><b>Price: Rs 400</b></p>
+            <div class="quantity-label my-3">
+                <label for="quantity-cart" class="form-label">Quantity</label>
+                <input type="number" class="form-control w-50" id="quantity-cart" name="quantity" min="1" value="1">
+            </div>
+            <button class="Buy">BUY NOW</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        const cart = [];
+
+function addToCart(productName, productPrice, productQuantity) {
+    const existingItem = cart.find(item => item.name === productName);
+
+    if (existingItem) {
+
+        existingItem.quantity += productQuantity;
+        existingItem.totalPrice = existingItem.quantity * productPrice;
+    } else {
+
+        cart.push({
+            name: productName,
+            price: productPrice,
+            quantity: productQuantity,
+            totalPrice: productQuantity * productPrice
+        });
+    }
+
+    displayCart();
+}
+
+function displayCart() {
+    const cartBody = document.querySelector(".offcanvas-body");
+    let totalCartPrice = 0;
+
+    cartBody.innerHTML = `
+        <h5>Shopping Cart</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <ul class="list-group mb-3"></ul>
+    `;
+
+    const ul = document.createElement("ul");
+    ul.className = "list-group";
+
+    cart.forEach(item => {
+        const li = document.createElement("li");
+        li.className = "list-group-item d-flex justify-content-between align-items-center";
+        li.innerHTML = `
+            ${item.name} - Rs ${item.price} x ${item.quantity}
+            <span>Rs ${item.totalPrice}</span>
+        `;
+        ul.appendChild(li);
+        totalCartPrice += item.totalPrice;
+    });
+
+    cartBody.appendChild(ul);
+
+    const totalDiv = document.createElement("div");
+    totalDiv.className = "mt-3";
+    totalDiv.innerHTML = `<strong>Total Price: Rs ${totalCartPrice}</strong>`;
+    cartBody.appendChild(totalDiv);
+}
+
+document.querySelector(".btn-outline-dark").addEventListener("click", () => {
+    const productName = "Turmeric Powder"; 
+    const productPrice = 400; 
+    const productQuantity = parseInt(document.querySelector("#quantity").value); 
+    addToCart(productName, productPrice, productQuantity);
+});
+    </script>
+</body>
+</html>

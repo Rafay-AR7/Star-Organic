@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="signinstyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>Star Organic | Sign-In/Sign-up</title>
+    <link rel="shortcut icon" href="gallery/logo-star-organic.png" type="image/x-icon">
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="sign-up">
+            <form id="signUpForm">
+                <h1>Create Account</h1>
+                <div class="icons">
+                    <a href="https://www.facebook.com/campaign/landing.php?campaign_id=1653377901&extra_1=s|c|318307045126|e|facebook%27|&placement=&creative=318307045126&keyword=facebook%27&partner_id=googlesem&extra_2=campaignid%3D1653377901%26adgroupid%3D65139789042%26matchtype%3De%26network%3Dg%26source%3Dnotmobile%26search_or_content%3Ds%26device%3Dc%26devicemodel%3D%26adposition%3D%26target%3D%26targetid%3Dkwd-362360550869%26loc_physical_ms%3D9077149%26loc_interest_ms%3D%26feeditemid%3D%26param1%3D%26param2%3D&gad_source=1&gclid=Cj0KCQiA4L67BhDUARIsADWrl7HPI3Ju-zVvilG4tHk0M6UABn6huSFr_DnngQFRdKvPBF32yAZeW2MaAnIKEALw_wcB" class="icon"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-google"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                </div>
+                <span>or use email for registration</span>
+                <input type="text" id="signUpName" placeholder="Name">
+                <div id="nameError" class="error-message"></div>
+                <input type="email" id="signUpEmail" placeholder="Email">
+                <div id="emailError" class="error-message"></div>
+                <input type="password" id="signUpPassword" placeholder="Password">
+                <div id="passwordError" class="error-message"></div>
+                <a href="index.html">
+                <button type="submit" class="sibtn">Sign Up</button>
+                </a>
+            </form>
+        </div>
+        
+        <div class="sign-in">
+            <form id="signInForm">
+                <h1>Sign In</h1>
+                <div class="icons">
+                    <a href="https://www.facebook.com/" class="icon" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/" class="icon" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.google.co.uk/" class="icon" target="_blank"><i class="fa-brands fa-google"></i></a>
+                    <a href="https://github.com/" class="icon" target="_blank"><i class="fa-brands fa-github"></i></a>
+                </div>
+                <span>or use email password</span>
+                <input type="email" id="signInEmail" placeholder="Email">
+                <div id="signInEmailError" class="error-message"></div>
+                <input type="password" id="signInPassword" placeholder="Password">
+                <div id="signInPasswordError" class="error-message"></div>
+                <a href="index.html">
+                <button type="submit" class="sibtn">Sign In</button>
+            </a>
+            </form>
+        </div>
+        
+        <div class="toogle-container">
+            <div class="toogle">
+                <div class="toogle-panel toogle-left">
+                    <h1>Welcome User</h1>
+                    <p>If you already have an account</p>
+                    <button class="hidden" id="login">Sign In</button>
+                </div>
+                <div class="toogle-panel toogle-right">
+                    <h1>Hello User</h1>
+                    <p>If you don't have an account</p>
+                    <button class="hidden" id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

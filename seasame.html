@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page | Sesame Seeds</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="gallery/logo-star-organic.png" type="image/x-icon">
+</head>
+<body>
+    <div class="container py-5" data-aos="fade-up" data-aos-duration="1500">
+        <div class="row product-container align-items-center">
+            <!-- Product Image -->
+            <div class="col-md-5 text-center" data-aos="zoom-in" data-aos-duration="2000">
+                <img src="https://thumbs.dreamstime.com/b/sesame-seeds-9262435.jpg" alt="Sesame Seeds" class="img-fluid rounded shadow">
+            </div>
+
+            <!-- Product Details -->
+            <div class="col-md-7">
+                <h2 class="product-title" data-aos="fade-right" data-aos-duration="2000">SESAME SEEDS</h2>
+                <p style="color: #cac7c6;"><strong style="color: #bebdbc;">Price:</strong> Rs 350</p>
+                <p class="product-description">
+                    <small><b style="color: rgb(248, 238, 238);">Star Organics Sesame Seeds</b> are small, nutrient-rich seeds known for their rich flavor and numerous health benefits. These organic seeds are packed with healthy fats, antioxidants, and a range of vitamins and minerals, making them a great addition to any meal.</small>
+                </p>
+                <div class="quantity-label my-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control w-50" id="quantity" name="quantity" min="1" value="1">
+                </div>
+                <button class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" 
+                        data-aos="zoom-out-right" data-aos-duration="2000">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offcanvas Shopping Cart -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="cartOffcanvasLabel">Shopping Cart</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+           
+            <img src="https://thumbs.dreamstime.com/b/sesame-seeds-9262435.jpg" alt="Sesame Seeds"  height="200" width="200">
+           
+            <h3 style="color: #3b1c09;">Sesame Seeds</h3>
+            <p>Boost the nutritional value of your dishes with the addition of <b style="color: #0f0f0f;">Star Organics Sesame Seeds</b>. These tiny seeds are packed with proteins, fiber, and heart-healthy fats, making them perfect for salads, smoothies, or as a topping for various dishes.</p>
+            <h5>Benefits of Sesame Seeds:</h5>
+            <ul>
+                <li><b>High in Nutrients:</b> Sesame seeds are rich in calcium, magnesium, iron, and essential fatty acids.</li>
+                <li><b>Rich in Antioxidants:</b> These seeds help fight oxidative stress and promote healthy aging.</li>
+                <li><b>Heart-Healthy:</b> The omega-3 fatty acids in sesame seeds are beneficial for heart health.</li>
+                <li><b>Versatile Use:</b> Perfect for sprinkling on salads, baked goods, or mixing into smoothies.</li>
+            </ul>
+            <p><b>Price: Rs 350</b></p>
+            <div class="quantity-label my-3">
+                <label for="quantity-cart" class="form-label">Quantity</label>
+                <input type="number" class="form-control w-50" id="quantity-cart" name="quantity" min="1" value="1">
+            </div>
+            <button class="Buy">BUY NOW</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        const cart = [];
+
+function addToCart(productName, productPrice, productQuantity) {
+    const existingItem = cart.find(item => item.name === productName);
+
+    if (existingItem) {
+
+        existingItem.quantity += productQuantity;
+        existingItem.totalPrice = existingItem.quantity * productPrice;
+    } else {
+
+        cart.push({
+            name: productName,
+            price: productPrice,
+            quantity: productQuantity,
+            totalPrice: productQuantity * productPrice
+        });
+    }
+
+    displayCart();
+}
+
+function displayCart() {
+    const cartBody = document.querySelector(".offcanvas-body");
+    let totalCartPrice = 0;
+
+    cartBody.innerHTML = `
+        <h5>Shopping Cart</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <ul class="list-group mb-3"></ul>
+    `;
+
+    const ul = document.createElement("ul");
+    ul.className = "list-group";
+
+    cart.forEach(item => {
+        const li = document.createElement("li");
+        li.className = "list-group-item d-flex justify-content-between align-items-center";
+        li.innerHTML = `
+            ${item.name} - Rs ${item.price} x ${item.quantity}
+            <span>Rs ${item.totalPrice}</span>
+        `;
+        ul.appendChild(li);
+        totalCartPrice += item.totalPrice;
+    });
+
+    cartBody.appendChild(ul);
+
+    const totalDiv = document.createElement("div");
+    totalDiv.className = "mt-3";
+    totalDiv.innerHTML = `<strong>Total Price: Rs ${totalCartPrice}</strong>`;
+    cartBody.appendChild(totalDiv);
+}
+
+document.querySelector(".btn-outline-dark").addEventListener("click", () => {
+    const productName = "Sesame Seeds"; 
+    const productPrice = 350; 
+    const productQuantity = parseInt(document.querySelector("#quantity").value); 
+    addToCart(productName, productPrice, productQuantity);
+});
+    </script>
+</body>
+</html>

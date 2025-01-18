@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page | Basmati Rice</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="gallery/logo-star-organic.png" type="image/x-icon">
+</head>
+<body>
+    <div class="container py-5" data-aos="fade-up" data-aos-duration="1500">
+        <div class="row product-container align-items-center">
+            <!-- Product Image -->
+            <div class="col-md-5 text-center" data-aos="zoom-in" data-aos-duration="2000">
+                <img src="gallery/BasmatiRicegold.webp" alt="Basmati Rice" class="img-fluid rounded shadow">
+            </div>
+
+            <!-- Product Details -->
+            <div class="col-md-7">
+                <h2 class="product-title" data-aos="fade-right" data-aos-duration="2000">BASMATI RICE</h2>
+                <p><strong>Price:</strong> Rs 350</p>
+                <p class="product-description">
+                    <small><b style="color: #f1ebe7;">Star Organics Basmati Rice</b> is grown in the finest organic farms of India. Known for its long grains, rich aroma, and fluffy texture when cooked, this rice is perfect for all your culinary needs, from traditional biryanis to light, aromatic rice dishes.</small>
+                </p>
+                <div class="quantity-label my-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control w-50" id="quantity" name="quantity" min="1" value="1">
+                </div>
+                <button class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" 
+                        data-aos="zoom-out-right" data-aos-duration="2000">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offcanvas Shopping Cart -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="cartOffcanvasLabel">Shopping Cart</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+           
+        <img src="gallery/BasmatiRicegold.webp" alt="Basmati Rice"  height="200" width="200">
+            
+            <h3 style="color: #3b1c09;">Basmati Rice</h3>
+            <p><b style="color: #614c3f;">Star Organics Basmati Rice</b> is the epitome of quality rice, handpicked from the organic fields of India. With its unmatched fragrance and delicate texture, it adds a touch of sophistication to any meal. Perfect for making biryani, pilaf, or simple steamed rice.</p>
+
+            <h5 style="color: #644836;">Benefits of Basmati Rice:</h5>
+            <ul>
+                <li><b>100% Organic:</b> Grown without any pesticides or synthetic fertilizers, ensuring pure and healthy rice grains.</li><br>
+                <li><b>Low Glycemic Index:</b> Ideal for those looking to maintain stable blood sugar levels, making it a great choice for diabetics.</li><br>
+                <li><b>Rich in Aromatic Flavor:</b> Known for its unique fragrance and long, slender grains that cook up beautifully.</li><br>
+                <li><b>High in Nutrients:</b> Provides essential vitamins and minerals like folate, iron, and magnesium for a balanced diet.</li><br>
+                <li><b>Digestive Health:</b> Basmati rice is light on the stomach, promoting healthy digestion without being overly heavy.</li><br>
+            </ul>
+            <p><b>Price: Rs 350</b></p>
+            <div class="quantity-label my-3">
+                <label for="quantity-cart" class="form-label">Quantity</label>
+                <input type="number" class="form-control w-50" id="quantity-cart" name="quantity" min="1" value="1">
+            </div>
+            <button class="Buy" style="width: 80%;">BUY NOW</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        const cart = [];
+
+function addToCart(productName, productPrice, productQuantity) {
+    const existingItem = cart.find(item => item.name === productName);
+
+    if (existingItem) {
+
+        existingItem.quantity += productQuantity;
+        existingItem.totalPrice = existingItem.quantity * productPrice;
+    } else {
+
+        cart.push({
+            name: productName,
+            price: productPrice,
+            quantity: productQuantity,
+            totalPrice: productQuantity * productPrice
+        });
+    }
+
+    displayCart();
+}
+
+function displayCart() {
+    const cartBody = document.querySelector(".offcanvas-body");
+    let totalCartPrice = 0;
+
+    cartBody.innerHTML = `
+        <h5>Shopping Cart</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <ul class="list-group mb-3"></ul>
+    `;
+
+    const ul = document.createElement("ul");
+    ul.className = "list-group";
+
+    cart.forEach(item => {
+        const li = document.createElement("li");
+        li.className = "list-group-item d-flex justify-content-between align-items-center";
+        li.innerHTML = `
+            ${item.name} - Rs ${item.price} x ${item.quantity}
+            <span>Rs ${item.totalPrice}</span>
+        `;
+        ul.appendChild(li);
+        totalCartPrice += item.totalPrice;
+    });
+
+    cartBody.appendChild(ul);
+
+    const totalDiv = document.createElement("div");
+    totalDiv.className = "mt-3";
+    totalDiv.innerHTML = `<strong>Total Price: Rs ${totalCartPrice}</strong>`;
+    cartBody.appendChild(totalDiv);
+}
+
+document.querySelector(".btn-outline-dark").addEventListener("click", () => {
+    const productName = "Basmati Rice"; 
+    const productPrice = 350; 
+    const productQuantity = parseInt(document.querySelector("#quantity").value); 
+    addToCart(productName, productPrice, productQuantity);
+});
+    </script>
+</body>
+</html>

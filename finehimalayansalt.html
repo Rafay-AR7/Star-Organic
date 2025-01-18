@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page | Fine Himalayan Pink Salt</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="gallery/logo-star-organic.png" type="image/x-icon">
+</head>
+<body>
+    <div class="container py-5" data-aos="fade-up" data-aos-duration="1500">
+        <div class="row product-container align-items-center">
+            <!-- Product Image -->
+            <div class="col-md-5 text-center" data-aos="zoom-in" data-aos-duration="2000">
+                <img src="gallery/fine himalayan pink salt.webp" alt="Fine Himalayan Pink Salt" class="img-fluid rounded shadow">
+            </div>
+
+            <!-- Product Details -->
+            <div class="col-md-7">
+                <h2 class="product-title" data-aos="fade-right" data-aos-duration="2000">FINE HIMALAYAN PINK SALT</h2>
+                <p style="color: #cac7c6;"><strong style="color: #bebdbc;">Price:</strong> Rs 250</p>
+                <p class="product-description">
+                    <small><b style="color: #f5f3f2;">Star Organics Fine Himalayan Pink Salt</b> is sourced from the pristine mountains of the Himalayas. Rich in minerals, this natural salt is a healthier alternative to regular table salt. It has a delicate flavor that enhances the taste of your dishes, making it the perfect addition to your kitchen.</small>
+                </p>
+                <div class="quantity-label my-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control w-50" id="quantity" name="quantity" min="1" value="1">
+                </div>
+                <button class="btn btn-outline-dark" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" 
+                        data-aos="zoom-out-right" data-aos-duration="2000">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offcanvas Shopping Cart -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="cartOffcanvasLabel">Shopping Cart</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+           
+        <img src="gallery/fine himalayan pink salt.webp" alt="Fine Himalayan Pink Salt"  height="200" width="200">
+         
+            <h3 style="color: #3b1c09;">Fine Himalayan Pink Salt</h3>
+            <p><b style="color: #614c3f;">Star Organics Fine Himalayan Pink Salt</b> is a natural and unrefined salt that contains over 80 essential minerals and trace elements, giving it a delicate, rich flavor. It is a healthier option compared to regular table salt and can enhance the taste of your cooking while supporting your health.</p>
+
+            <h5>Benefits of Fine Himalayan Pink Salt:</h5>
+            <ul>
+                <li><b>Rich in Essential Minerals:</b> Contains over 80 minerals and trace elements, including potassium, magnesium, and calcium.</li><br>
+                <li><b>Natural and Unrefined:</b> Free from additives and chemicals, making it a cleaner option compared to regular salt.</li><br>
+                <li><b>Supports Hydration:</b> Helps balance electrolytes and promote healthy hydration in the body.</li><br>
+                <li><b>Enhances Flavor:</b> Adds a subtle, richer flavor to your food compared to regular salt.</li><br>
+            </ul>
+            <p>Price:<b>Rs 250</b></p>
+            <div class="quantity-label my-3">
+                <label for="quantity-cart" class="form-label">Quantity</label>
+                <input type="number" class="form-control w-50" id="quantity-cart" name="quantity" min="1" value="1">
+            </div>
+            <button class="Buy">BUY NOW</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        const cart = [];
+
+        function addToCart(productName, productPrice, productQuantity) {
+            const existingItem = cart.find(item => item.name === productName);
+    
+            if (existingItem) {
+     
+                existingItem.quantity += productQuantity;
+                existingItem.totalPrice = existingItem.quantity * productPrice;
+            } else {
+
+                cart.push({
+                    name: productName,
+                    price: productPrice,
+                    quantity: productQuantity,
+                    totalPrice: productQuantity * productPrice
+                });
+            }
+
+            displayCart();
+        }
+
+        function displayCart() {
+            const cartBody = document.querySelector(".offcanvas-body");
+            let totalCartPrice = 0;
+
+            cartBody.innerHTML = `
+                <h5>Shopping Cart</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <ul class="list-group mb-3"></ul>
+            `;
+    
+            const ul = document.createElement("ul");
+            ul.className = "list-group";
+
+            cart.forEach(item => {
+                const li = document.createElement("li");
+                li.className = "list-group-item d-flex justify-content-between align-items-center";
+                li.innerHTML = `
+                    ${item.name} - Rs ${item.price} x ${item.quantity}
+                    <span>Rs ${item.totalPrice}</span>
+                `;
+                ul.appendChild(li);
+                totalCartPrice += item.totalPrice;
+            });
+    
+            cartBody.appendChild(ul);
+
+            const totalDiv = document.createElement("div");
+            totalDiv.className = "mt-3";
+            totalDiv.innerHTML = `<strong>Total Price: Rs ${totalCartPrice}</strong>`;
+            cartBody.appendChild(totalDiv);
+        }
+
+        document.querySelector(".btn-outline-dark").addEventListener("click", () => {
+            const productName = "Himalayan Pink Salt"; 
+            const productPrice = 250; 
+            const productQuantity = parseInt(document.querySelector("#quantity").value); 
+            addToCart(productName, productPrice, productQuantity);
+        });
+    </script>
+</body>
+</html>
